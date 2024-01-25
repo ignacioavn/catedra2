@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0)]],
       image: ['', [Validators.required, Validators.pattern(/^images\/\d+\.(png|jfif)$/)]],
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(
       response => {
         this.products = response.products;
-        console.log(response);
       },
       error => {
         console.error('Error al obtener los productos.', error);
@@ -54,8 +53,14 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  updateProduct(){}
-
-  deleteProduct(){}
-
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id).subscribe(
+      (response) => {
+        this.getProducts();
+      },
+      (error) => {
+        console.error('Error al eliminar producto.', error);
+      }
+    );
+  }
 }
