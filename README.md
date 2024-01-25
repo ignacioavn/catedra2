@@ -23,7 +23,7 @@
 1. Clone the repository.
 
 ```bash
-git clone https://github.com/ignacioavn/catedra2.git
+git clone https://github.com/ignacioavn/catedra2-no-images.git
 ```
 
 2. Open the project in your code editor.
