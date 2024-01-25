@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+th {
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-warning,
+.btn-danger {
+  margin-right: 5px;
+  width: 80px;
+}
