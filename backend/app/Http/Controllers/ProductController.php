@@ -22,7 +22,7 @@ class ProductController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|integer|min:0',
-            'image' => ['required', 'string', 'regex:/^images\/\d+\.(png|jfif)$/'],
+            'image' => 'required|string',
         ]);
 
         $product = Product::create([
@@ -54,7 +54,7 @@ class ProductController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|integer|min:0',
-            'image' => ['required', 'string', 'regex:/^images\/\d+\.(png|jfif)$/'],
+            'image' => 'required|string',
         ]);
 
         $product = Product::find($id);
