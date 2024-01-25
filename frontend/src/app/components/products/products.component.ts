@@ -10,9 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
 
+  createForm: FormGroup;
   products: Product[] = [];
 
-  constructor(private productService: ProductsService) { }
+  constructor(private productService: ProductsService, private formBuilder: FormBuilder) {
+    this.createForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0)]],
+      image: ['', [Validators.required, Validators.pattern(/^images\/\d+\.(png|jfif)$/)]],
+    })
+  }
 
   ngOnInit(): void {
     this.getProducts();
@@ -22,15 +30,29 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(
       response => {
         this.products = response.products;
-        console.log(this.products);
+        console.log(response);
       },
       error => {
-        console.error('Error fetching products', error);
+        console.error('Error al obtener los productos.', error);
       }
     );
   }
 
-  createProduct(){}
+  createProduct(): void {
+    if (this.createForm.valid) {
+      const newProduct = this.createForm.value;
+
+      this.productService.createProduct(newProduct).subscribe(
+        (response) => {
+          this.getProducts();
+          this.createForm.reset();
+        },
+        (error) => {
+          console.error('Error al crear el producto.', error);
+        }
+      );
+    }
+  }
 
   updateProduct(){}
 

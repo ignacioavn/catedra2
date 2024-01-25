@@ -18,25 +18,25 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form [formGroup]="createForm" (ngSubmit)="createProduct()">
                 <div class="mb-3">
                   <label for="productName" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="productName" name="name" required/>
+                  <input type="text" class="form-control" id="productName" name="name" formControlName="name" required/>
                 </div>
                 <div class="mb-3">
                   <label for="productDescription" class="form-label">Descripción</label>
-                  <textarea class="form-control" id="productDescription" name="description" required></textarea>
+                  <textarea class="form-control" id="productDescription" name="description" formControlName="description" required></textarea>
                 </div>
                 <div class="mb-3">
                   <label for="productPrice" class="form-label">Precio</label>
-                  <input type="number" class="form-control" id="productPrice" name="price" required/>
+                  <input type="number" class="form-control" id="productPrice" name="price" formControlName="price" required/>
                 </div>
                 <div class="mb-3">
                   <label for="productImage" class="form-label">Imagen</label>
-                  <input type="text" class="form-control" id="productImage" name="image" required/>
+                  <input type="text" class="form-control" id="productImage" name="image" formControlName="image" required/>
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-success" data-bs-dismiss="modal">
+                  <button type="submit" class="btn btn-success" [disabled]="!createForm.valid" data-bs-dismiss="modal">
                     Crear
                   </button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
