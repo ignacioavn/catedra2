@@ -19,14 +19,14 @@ export class ProductsComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0)]],
-      image: ['', [Validators.required]],
+      image: ['', [Validators.required, Validators.pattern(/^images\/\d+\.(jfif|jpg)$/)]],
     });
 
     this.editForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0)]],
-      image: ['', [Validators.required]],
+      image: ['', [Validators.required, Validators.pattern(/^images\/\d+\.(jfif|jpg)$/)]],
     });
   }
 
