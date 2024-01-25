@@ -21,6 +21,14 @@ export class ProductsService {
   }
 
   deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/products/${id}/`);
+    return this.http.delete<void>(`${this.url}/products/${id}`);
+  }
+
+  editProduct(id: number): Observable<{ product: Product }> {
+    return this.http.get<{ product: Product }>(`${this.url}/products/${id}`);
+  }
+
+  updateProduct(id: number, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.url}/products/${id}`, product);
   }
 }

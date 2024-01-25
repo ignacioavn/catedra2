@@ -9,16 +9,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
   createForm: FormGroup;
+  editForm: FormGroup;
   products: Product[] = [];
+  editId: number = 0;
 
   constructor(private productService: ProductsService, private formBuilder: FormBuilder) {
     this.createForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0)]],
-      image: ['', [Validators.required, Validators.pattern(/^images\/\d+\.(png|jfif)$/)]],
+      image: ['', [Validators.required]],
+    });
+
+    this.editForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0)]],
+      image: ['', [Validators.required]],
     });
   }
 
@@ -62,5 +70,39 @@ export class ProductsComponent implements OnInit {
         console.error('Error al eliminar producto.', error);
       }
     );
+  }
+
+  editProduct(id: number): void {
+    this.editId = id;
+    this.productService.editProduct(id).subscribe(
+      (response) => {
+        const product = response.product;
+        this.editForm.patchValue({
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          image: product.image,
+        });
+      },
+      (error) => {
+        console.error(`Error al obtener los datos del producto con ID ${id}.`, error);
+      }
+    );
+  }
+
+  updateProduct(id: number): void {
+    if (this.editForm.valid) {
+      const editedProduct = this.editForm.value;
+
+      this.productService.updateProduct(id, editedProduct).subscribe(
+        (response) => {
+          this.getProducts();
+          this.editForm.reset();
+        },
+        (error) => {
+          console.error('Error al actualizar el producto.', error);
+        }
+      );
+    }
   }
 }

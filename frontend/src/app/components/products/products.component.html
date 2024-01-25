@@ -57,9 +57,9 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th width="150px" scope="col">Nombre</th>
+          <th width="130px" scope="col">Nombre</th>
           <th scope="col">Descripción</th>
-          <th width="100px" scope="col">Precio</th>
+          <th width="130px" scope="col">Precio</th>
           <th scope="col">Imagen</th>
           <th width="190px" scope="col">Acción</th>
         </tr>
@@ -75,7 +75,7 @@
           <!-- Get Products -->
           <!-- Edit Product -->
           <td>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal">
+            <button (click)="editProduct(product.id)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal">
               Editar
             </button>
           <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
@@ -89,26 +89,26 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form [formGroup]="editForm" (ngSubmit)="updateProduct(editId)">
                     <div class="mb-3">
                       <label for="productName" class="form-label">Nombre</label>
                       <input type="text" class="form-control" id="productName"
-                      name="name" required/>
+                      name="name" formControlName="name" required/>
                     </div>
                     <div class="mb-3">
                       <label for="productDescription" class="form-label">Descripción</label>
                       <textarea class="form-control" id="productDescription"
-                      name="description" required></textarea>
+                      name="description" formControlName="description" required></textarea>
                     </div>
                     <div class="mb-3">
                       <label for="productPrice" class="form-label">Precio</label>
                       <input type="number" class="form-control" id="productPrice"
-                      name="price" required />
+                      name="price" formControlName="price" required />
                     </div>
                     <div class="mb-3">
                       <label for="productImage" class="form-label">Imagen</label>
                       <input type="text" class="form-control" id="productImage"
-                      name="image" required/>
+                      name="idmage" formControlName="image" required/>
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-success" data-bs-dismiss="modal">
